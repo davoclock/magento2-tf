@@ -37,7 +37,63 @@ aws_secret_access_key = <SECRET_KEY>
 ## Diagram
 [To be done]
 
-## Releases
-### v0.1
-- Network core only. Creates VPCs, subnets, routing tables, IGW, NAT Gateway & creates routing table associations
+## Progress
+### Network
+- [x] VPCs
+- [x] Subnets
+- [x] Routing tables
+- [x] Internet Gateways
+- [x] NAT Gateways
+- [x] Routing table associations
+- [x] Default Routes
+- [ ] VPC Peering
+- [ ] VPC Routes
+- [ ] Security Groups
+- [ ] Database Subnet Groups
 
+### Database
+- [ ] Aurora MySQL Database
+- [ ] Cross-Region Replica
+- [ ] Parameter Groups
+- [ ] Auto-Scaling
+
+### EFS
+- [ ] EFS Volumes
+
+### Redis
+- [ ] Cross-Region Redis Cluster
+- [ ] Parameter Groups
+
+### Search
+- [ ] TBD; AWS ElasticSearch vs EC2
+
+### LBs
+- [ ] Certificate
+- [ ] Target Groups
+- [ ] Security Profile
+- [ ] Health Checks
+
+### Cache
+- [ ] Bootstrap AMI with Varnish Config
+- [ ] AutoScaling
+
+### Web
+- [ ] Bootstrap AMI with Nginx and Magento Config
+- [ ] AutoScaling
+
+### CDN
+- [ ] TBD; Cloudfront vs Cloudflare
+
+### DNS
+- [ ] Route53 zone
+- [ ] DNS Records
+
+### WAF
+- [ ] TBD - AWS Shield/WAF vs Cloudflare
+
+## Useful Links
+[Magento performance best practices](https://devdocs.magento.com/guides/v2.3/performance-best-practices/software.html)
+
+[Magento system requirements](https://devdocs.magento.com/guides/v2.3/install-gde/system-requirements-tech.html)
+
+[Tuning Nginx](https://www.nginx.com/blog/tuning-nginx/)
