@@ -9,7 +9,7 @@ variable "region2" {
 
 
 #============================== REGION 2 VARIABLES ==============================#
-variable "vpcCIDRblock2" {
+variable "vpc_cidr_block2" {
     type = string
     default = "10.20.0.0/16"
 }
