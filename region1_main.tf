@@ -1,4 +1,4 @@
-#------------------------------------------- DEFINE PROVIDE FOR REGION 1
+#------------------------------------------- DEFINE PROVIDER FOR REGION 1
 provider "aws" {
   region                  = var.region1
   version                 = "~> 2.70"
@@ -7,7 +7,7 @@ provider "aws" {
   profile                 = "region1"
 }
 
-#------------------------------------------- CREATE VPC
+#------------------------------------------- CREATE NETWORK COMPONENTS
 module "network1" {
   source = "./modules/vpc"
 
