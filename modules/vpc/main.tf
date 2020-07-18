@@ -142,7 +142,7 @@ resource "aws_eip" "elastic_ip_for_nat" {
   depends_on     = [aws_internet_gateway.internet_gateway]
 }
 
-#------------------------------------------- ATTACH ELASTIC IP TO PUBLIC SUBNET
+#------------------------------------------- ATTACH ELASTIC IP TO NAT GW
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.elastic_ip_for_nat.id
   subnet_id     = aws_subnet.bastion_subnets[0].id
