@@ -16,7 +16,7 @@ variable "vpc_cidr_block2" {
 
 variable "az2" {
     type = list
-    default = ["a","b"]
+    default = ["us-west-1a","us-west-1c"]
 }
 
 variable "bastion_subnets2" {
