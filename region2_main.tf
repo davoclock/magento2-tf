@@ -86,3 +86,15 @@ module "network2" {
     aws = aws.region2
   }
 }
+
+module "efs2" {
+  source = "./modules/efs"
+
+  efs_subnets_id_a        = module.network2.efs_subnets_id_1
+  efs_subnets_id_b        = module.network2.efs_subnets_id_2
+  efs_security_group_id   = module.network2.efs_security_group_id
+  
+  providers = {
+    aws = aws.region2
+  }
+}
