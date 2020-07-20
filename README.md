@@ -58,7 +58,8 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Auto-Scaling
 
 ### EFS
-- [ ] EFS Volumes
+- [X] EFS Volumes
+- [X] EFS Targets
 
 ### Redis
 - [ ] Cross-Region Redis Cluster
