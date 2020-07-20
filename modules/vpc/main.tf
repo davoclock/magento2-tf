@@ -171,7 +171,7 @@ resource "aws_nat_gateway" "nat_gateway" {
 }
 
 #-------------------------------------------BASTION HOST SECURITY GROUP
-resource "aws_security_group" "bastion_servers_sg1" {
+resource "aws_security_group" "bastion_servers_sg" {
   name        = "BASTION"
   vpc_id      = aws_vpc.vpc.id
 
@@ -191,7 +191,7 @@ resource "aws_security_group" "bastion_servers_sg1" {
 }
 
 #------------------------------------------- PUB LB SECURITY GROUP
-resource "aws_security_group" "external_lb_sg1" {
+resource "aws_security_group" "external_lb_sg" {
   name        = "PUBLB"
   vpc_id      = aws_vpc.vpc.id
 
@@ -218,7 +218,7 @@ resource "aws_security_group" "external_lb_sg1" {
 }
 
 #-------------------------------------------VARNISH/CACHE SECURITY GROUP
-resource "aws_security_group" "cache_servers_sg1" {
+resource "aws_security_group" "cache_servers_sg" {
   name        = "Cache"
   vpc_id      = aws_vpc.vpc.id
 
@@ -226,14 +226,14 @@ resource "aws_security_group" "cache_servers_sg1" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    security_groups = [aws_security_group.external_lb_sg1.id]
+    security_groups = [aws_security_group.external_lb_sg.id]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups = [aws_security_group.bastion_servers_sg1.id]
+    security_groups = [aws_security_group.bastion_servers_sg.id]
   }
 
   egress {
@@ -245,7 +245,7 @@ resource "aws_security_group" "cache_servers_sg1" {
 }
 
 #------------------------------------------- PRIV LB SECURITY GROUP
-resource "aws_security_group" "internal_lb_sg1" {
+resource "aws_security_group" "internal_lb_sg" {
   name        = "PRIVLB"
   vpc_id      = aws_vpc.vpc.id
 
@@ -253,14 +253,14 @@ resource "aws_security_group" "internal_lb_sg1" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    security_groups = [aws_security_group.cache_servers_sg1.id]
+    security_groups = [aws_security_group.cache_servers_sg.id]
   }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    security_groups = [aws_security_group.cache_servers_sg1.id]
+    security_groups = [aws_security_group.cache_servers_sg.id]
   }
 
   egress {
@@ -272,7 +272,7 @@ resource "aws_security_group" "internal_lb_sg1" {
 }
 
 #-------------------------------------------MAGENTO/WEB SECURITY GROUP
-resource "aws_security_group" "web_servers_sg1" {
+resource "aws_security_group" "web_servers_sg" {
   name        = "Web"
   vpc_id      = aws_vpc.vpc.id
 
@@ -280,21 +280,21 @@ resource "aws_security_group" "web_servers_sg1" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    security_groups = [aws_security_group.internal_lb_sg1.id]
+    security_groups = [aws_security_group.internal_lb_sg.id]
   }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    security_groups = [aws_security_group.internal_lb_sg1.id]
+    security_groups = [aws_security_group.internal_lb_sg.id]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    security_groups = [aws_security_group.bastion_servers_sg1.id]
+    security_groups = [aws_security_group.bastion_servers_sg.id]
   }
 
   egress {
@@ -306,7 +306,7 @@ resource "aws_security_group" "web_servers_sg1" {
 }
 
 #-------------------------------------------DB SECURITY GROUP
-resource "aws_security_group" "rds_sg1" {
+resource "aws_security_group" "rds_sg" {
   name        = "DB"
   vpc_id      = aws_vpc.vpc.id
 
@@ -314,7 +314,7 @@ resource "aws_security_group" "rds_sg1" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    security_groups = [aws_security_group.web_servers_sg1.id]
+    security_groups = [aws_security_group.web_servers_sg.id]
   }
 
   egress {
@@ -326,7 +326,7 @@ resource "aws_security_group" "rds_sg1" {
 }
 
 #-------------------------------------------SEARCH SECURITY GROUP
-resource "aws_security_group" "search_sg1" {
+resource "aws_security_group" "search_sg" {
   name        = "Search"
   vpc_id      = aws_vpc.vpc.id
 
@@ -334,7 +334,7 @@ resource "aws_security_group" "search_sg1" {
     from_port   = 9200
     to_port     = 9200
     protocol    = "tcp"
-    security_groups = [aws_security_group.web_servers_sg1.id]
+    security_groups = [aws_security_group.web_servers_sg.id]
   }
 
   egress {
@@ -345,7 +345,7 @@ resource "aws_security_group" "search_sg1" {
   }
 }
 #-------------------------------------------REDIS SECURITY GROUP
-resource "aws_security_group" "redis_sg1" {
+resource "aws_security_group" "redis_sg" {
   name        = "Redis"
   vpc_id      = aws_vpc.vpc.id
 
@@ -353,7 +353,7 @@ resource "aws_security_group" "redis_sg1" {
     from_port   = 6379
     to_port     = 6379
     protocol    = "tcp"
-    security_groups = [aws_security_group.web_servers_sg1.id]
+    security_groups = [aws_security_group.web_servers_sg.id]
   }
 
   egress {
@@ -365,7 +365,7 @@ resource "aws_security_group" "redis_sg1" {
 }
 
 #-------------------------------------------REDIS SECURITY GROUP
-resource "aws_security_group" "efs_sg1" {
+resource "aws_security_group" "efs_sg" {
   name        = "EFS"
   vpc_id      = aws_vpc.vpc.id
 
@@ -373,7 +373,7 @@ resource "aws_security_group" "efs_sg1" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    security_groups = [aws_security_group.web_servers_sg1.id]
+    security_groups = [aws_security_group.web_servers_sg.id]
   }
 
   egress {
