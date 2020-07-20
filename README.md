@@ -51,6 +51,10 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Security Groups
 - [X] Database Subnet Groups
 
+### Bastion Host
+- [ ] Bootstrap AMI
+- [ ] AutoScaling
+
 ### Database
 - [ ] Aurora MySQL Database
 - [ ] Cross-Region Replica
