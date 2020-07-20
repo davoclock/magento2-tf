@@ -37,6 +37,7 @@ resource "aws_vpc_peering_connection_options" "accepter" {
   accepter {
     allow_remote_vpc_dns_resolution = true
   }
+  depends_on      = [aws_vpc_peering_connection.cross-region-peering,aws_vpc_peering_connection_accepter.cross-region-peering]
 }
 
 #-------------------------------------------  VPC PEERING ROUTES

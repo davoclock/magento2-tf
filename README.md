@@ -48,8 +48,8 @@ aws_secret_access_key = <SECRET_KEY>
 - [x] Default Routes
 - [X] VPC Peering
 - [X] VPC Routes
-- [ ] Security Groups
-- [ ] Database Subnet Groups
+- [X] Security Groups
+- [X] Database Subnet Groups
 
 ### Database
 - [ ] Aurora MySQL Database

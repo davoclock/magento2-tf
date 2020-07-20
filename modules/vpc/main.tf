@@ -12,6 +12,9 @@ resource "aws_subnet" "bastion_subnets" {
   cidr_block              = var.bastion_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "bastion servers subnet"
+  }
 }
 
 resource "aws_subnet" "cache_subnets" {
@@ -20,6 +23,9 @@ resource "aws_subnet" "cache_subnets" {
   cidr_block              = var.cache_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "varnish servers subnet"
+  }
 }
 
 resource "aws_subnet" "web_subnets" {
@@ -28,6 +34,9 @@ resource "aws_subnet" "web_subnets" {
   cidr_block              = var.web_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "web servers subnet"
+  }
 }
 
 resource "aws_subnet" "db_subnets" {
@@ -36,6 +45,9 @@ resource "aws_subnet" "db_subnets" {
   cidr_block              = var.db_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "Database subnet"
+  }
 }
 
 resource "aws_subnet" "search_subnets" {
@@ -44,6 +56,9 @@ resource "aws_subnet" "search_subnets" {
   cidr_block              = var.search_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "Elasitcsearch subnet"
+  }
 }
 
 resource "aws_subnet" "efs_subnets" {
@@ -52,6 +67,9 @@ resource "aws_subnet" "efs_subnets" {
   cidr_block              = var.efs_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "EFS subnet"
+  }
 }
 
 resource "aws_subnet" "redis_subnets" {
@@ -60,6 +78,9 @@ resource "aws_subnet" "redis_subnets" {
   cidr_block              = var.redis_subnets[count.index]
   availability_zone       = var.az[count.index]
   depends_on              = [aws_vpc.vpc]
+  tags = {
+    Name = "Redis subnet"
+  }
 }
 #------------------------------------------- CREATE IGW
 resource "aws_internet_gateway" "internet_gateway" {
@@ -147,4 +168,224 @@ resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.elastic_ip_for_nat.id
   subnet_id     = aws_subnet.bastion_subnets[0].id
   depends_on    = [aws_eip.elastic_ip_for_nat]
+}
+
+#-------------------------------------------BASTION HOST SECURITY GROUP
+resource "aws_security_group" "bastion_servers_sg1" {
+  name        = "BASTION"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#------------------------------------------- PUB LB SECURITY GROUP
+resource "aws_security_group" "external_lb_sg1" {
+  name        = "PUBLB"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#-------------------------------------------VARNISH/CACHE SECURITY GROUP
+resource "aws_security_group" "cache_servers_sg1" {
+  name        = "Cache"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    security_groups = [aws_security_group.external_lb_sg1.id]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    security_groups = [aws_security_group.bastion_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#------------------------------------------- PRIV LB SECURITY GROUP
+resource "aws_security_group" "internal_lb_sg1" {
+  name        = "PRIVLB"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    security_groups = [aws_security_group.cache_servers_sg1.id]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    security_groups = [aws_security_group.cache_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#-------------------------------------------MAGENTO/WEB SECURITY GROUP
+resource "aws_security_group" "web_servers_sg1" {
+  name        = "Web"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    security_groups = [aws_security_group.internal_lb_sg1.id]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    security_groups = [aws_security_group.internal_lb_sg1.id]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    security_groups = [aws_security_group.bastion_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#-------------------------------------------DB SECURITY GROUP
+resource "aws_security_group" "rds_sg1" {
+  name        = "DB"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    security_groups = [aws_security_group.web_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#-------------------------------------------SEARCH SECURITY GROUP
+resource "aws_security_group" "search_sg1" {
+  name        = "Search"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 9200
+    to_port     = 9200
+    protocol    = "tcp"
+    security_groups = [aws_security_group.web_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+#-------------------------------------------REDIS SECURITY GROUP
+resource "aws_security_group" "redis_sg1" {
+  name        = "Redis"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 6379
+    to_port     = 6379
+    protocol    = "tcp"
+    security_groups = [aws_security_group.web_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#-------------------------------------------REDIS SECURITY GROUP
+resource "aws_security_group" "efs_sg1" {
+  name        = "EFS"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    security_groups = [aws_security_group.web_servers_sg1.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+#-------------------------------------------DB SUBNET GROUP
+resource "aws_db_subnet_group" "db_subnet" {
+  name = "db subnet group"
+  subnet_ids = [aws_subnet.db_subnets[0].id, aws_subnet.db_subnets[1].id]
 }
