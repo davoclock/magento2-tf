@@ -56,10 +56,10 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Key Pair
 
 ### Database
-- [ ] Aurora MySQL Database
+- [X] MariaDB Database (10.4.13)
 - [ ] Cross-Region Replica
-- [ ] Parameter Groups
-- [ ] Auto-Scaling
+- [X] Parameter Groups
+- [X] Storage Auto-Scaling
 
 ### EFS
 - [X] EFS Volumes
