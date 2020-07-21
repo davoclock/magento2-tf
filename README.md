@@ -67,7 +67,6 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### Redis
 - [ ] Cross-Region Redis Cluster
-- [ ] Parameter Groups
 
 ### Search
 - [X] Elasticsearch Domain

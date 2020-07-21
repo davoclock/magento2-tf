@@ -16,7 +16,7 @@ resource "aws_db_parameter_group" "magento_param_group" {
   instance_class       = "db.t2.micro"
   name                 = "magento"
   username             = "magento"
-  password             = "magentomagento"
+  password             = "magentomagento1"
   parameter_group_name = "mariadb"
   multi_az              = true
   db_subnet_group_name  = var.db_subnet_group

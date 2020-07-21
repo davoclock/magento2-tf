@@ -90,3 +90,10 @@ module "es1" {
     aws = aws.region1
   }
 }
+
+module "ecr1" {
+  source = "./modules/ecr"
+  providers = {
+    aws = aws.region1
+  }
+}
