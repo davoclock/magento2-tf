@@ -51,9 +51,9 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Security Groups
 - [X] Database Subnet Groups
 
-### Bastion Host
-- [ ] Bootstrap AMI
-- [ ] AutoScaling
+### EC2 - Bastion Host
+- [X] EC2 Instance
+- [X] Key Pair
 
 ### Database
 - [ ] Aurora MySQL Database
@@ -79,12 +79,12 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Health Checks
 
 ### Cache
-- [ ] Bootstrap AMI with Varnish Config
-- [ ] AutoScaling
+- [ ] Varnish Dockerfile
+- [ ] ECS/Fargate cluster
 
 ### Web
-- [ ] Bootstrap AMI with Nginx and Magento Config
-- [ ] AutoScaling
+- [ ] Magento 2.4 Dockerfile
+- [ ] ECS/Fargate cluster
 
 ### CDN
 - [ ] TBD; Cloudfront vs Cloudflare
