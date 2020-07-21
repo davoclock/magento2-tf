@@ -63,3 +63,13 @@ module "ec21" {
     aws = aws.region1
   }
 }
+
+module "rds1" {
+  source = "./modules/rds"
+  db_subnet_group = module.network1.aws_db_subnet_group
+  db_security_group_id = module.network1.db_security_group_id
+
+  providers = {
+    aws = aws.region1
+  }
+}
