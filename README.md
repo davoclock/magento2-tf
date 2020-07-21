@@ -70,7 +70,9 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Parameter Groups
 
 ### Search
-- [ ] TBD; AWS ElasticSearch vs EC2
+- [X] Elasticsearch Domain
+- [X] Elasticsearch Access Policies
+- [ ] Elasticsearch Dedicated Master
 
 ### LBs
 - [ ] Certificate
@@ -80,11 +82,22 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### Cache
 - [ ] Varnish Dockerfile
-- [ ] ECS/Fargate cluster
+- [ ] Varnish ECR Permissions
+- [ ] Fargate Cluster
+- [ ] Fargate Task Definition
+- [ ] Fargate Service
 
 ### Web
 - [ ] Magento 2.4 Dockerfile
-- [ ] ECS/Fargate cluster
+- [ ] Varnish ECR Permissions
+- [ ] Fargate Cluster
+- [ ] Fargate Task Definition
+- [ ] Fargate Service
+
+### IAM
+- [ ] EC2 Roles
+- [ ] ECS/Fargate Task roles
+- [ ] ECS/Fargate Task Execution roles
 
 ### CDN
 - [ ] TBD; Cloudfront vs Cloudflare

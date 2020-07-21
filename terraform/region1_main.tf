@@ -73,3 +73,20 @@ module "rds1" {
     aws = aws.region1
   }
 }
+
+module "es1" {
+  source = "./modules/elasticsearch"
+
+  es_domain           = var.es_domain1
+  es_size             = var.es_size1
+  es_version          = var.es_version1
+  es_count            = var.es_count1
+  es_dedicated_master = var.es_dedicated_master1
+  es_subnet_id_a      = module.network1.search_subnets_id_a
+  es_subnet_id_b      = module.network1.search_subnets_id_b
+  es_security_group_id= module.network1.es_security_group_id
+
+  providers = {
+    aws = aws.region1
+  }
+}

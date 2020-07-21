@@ -8,17 +8,29 @@ variable "region2" {
 
 
 
-#============================== REGION 2 VARIABLES ==============================#
+
+
+
+
+
+
+
+
+
+
+#----------------------------------------------------- VPC VARIABLE
 variable "vpc_cidr_block2" {
     type = string
     default = "10.20.0.0/16"
 }
 
+#----------------------------------------------------- AZ VARIABLE
 variable "az2" {
     type = list
     default = ["us-west-1a","us-west-1c"]
 }
 
+#----------------------------------------------------- SUBNET VARIABLES
 variable "bastion_subnets2" {
     type = list
     default = ["10.20.1.0/24", "10.20.2.0/24"]

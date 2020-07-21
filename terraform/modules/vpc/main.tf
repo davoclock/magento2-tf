@@ -331,10 +331,10 @@ resource "aws_security_group" "search_sg" {
   vpc_id      = aws_vpc.vpc.id
 
   ingress {
-    from_port   = 9200
-    to_port     = 9200
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
-    security_groups = [aws_security_group.web_servers_sg.id]
+    security_groups = [aws_security_group.web_servers_sg.id,aws_security_group.bastion_servers_sg.id]
   }
 
   egress {
