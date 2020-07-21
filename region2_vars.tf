@@ -53,3 +53,4 @@ variable "redis_subnets2" {
     type = list
     default = ["10.20.13.0/24", "10.20.14.0/24"]
 }
+

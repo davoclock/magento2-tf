@@ -47,3 +47,19 @@ module "efs1" {
     aws = aws.region1
   }
 }
+
+module "ec21" {
+  source = "./modules/ec2"
+
+  #EC2 KEY PAIR
+  ssh_key = var.ssh_key1
+
+  #BASTION HOST AMI
+  bastion_host_ami        = var.bastion_host_ami1
+  bastion_host_sg         = module.network1.bastion_security_group_id
+  subnet_id               = module.network1.bastion_subnets_id_1
+
+  providers = {
+    aws = aws.region1
+  }
+}
