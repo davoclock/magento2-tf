@@ -77,3 +77,11 @@ output "efs_security_group_id" {
 output "bastion_security_group_id" {
   value       = aws_security_group.bastion_servers_sg.id
 }
+
+output "db_security_group_id" {
+  value       = aws_security_group.rds_sg.id
+}
+
+output "aws_db_subnet_group" {
+  value       = aws_db_subnet_group.db_subnet.name
+}
