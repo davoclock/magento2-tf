@@ -73,3 +73,7 @@ output "private_routing_table_id" {
 output "efs_security_group_id" {
   value       = aws_security_group.efs_sg.id
 }
+
+output "bastion_security_group_id" {
+  value       = aws_security_group.bastion_servers_sg.id
+}
