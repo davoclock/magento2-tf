@@ -46,8 +46,11 @@ module "ec2" {
 
 module "rds" {
   source = "./modules/rds"
-  db_subnet_group = module.network.aws_db_subnet_group
-  db_security_group_id = module.network.db_security_group_id
+  rds_subnet_group = module.network.aws_db_subnet_group
+  rds_security_group_id = module.network.db_security_group_id
+  rds_disk_size       = var.rds_disk_size
+  rds_max_disk_size   = var.rds_max_disk_size
+  rds_type            = var.rds_type
 }
 
 module "es" {

@@ -65,6 +65,19 @@ variable "redis_subnets" {
 }
 
 
+#----------------------------------------------------- RDS VARIABLES
+variable "rds_disk_size" {
+  default = "10"
+}
+
+variable "rds_max_disk_size" {
+  default = "100"
+}
+
+variable "rds_type" {
+  default = "db.t2.micro"
+}
+
 #----------------------------------------------------- ELASTICSEARCH VARIABLES
 variable "es_domain" {
   default = "magento"
