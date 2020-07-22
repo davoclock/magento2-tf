@@ -1,38 +1,32 @@
 # magento2-tf
 
 ## Summary
-This terraform project creates a multi-region Magento 2.4 environment on AWS, with the ability to be used in an active-active manner. 
+This terraform project creates a Multi-AZ Magento 2.4 environment on AWS. Here are the services it uses:
+
+1. EC2 for Bastion Host (Amazon Linux 2) and ALBs
+2. Fargate for Varnish and Magento
+3. EFS for media assets
+4. RDS for MariaDB (10.4)
+5. ElasticSearch (7.4)
+6. Cloudfront
+7. Route 53
+
+Here's what you need:
+
+1. Wildcard, or store-url matching SSL cert under ACM
+2. AWS Credentials file with a profile name matching the region you choose on the vars.tf file
 
 ## How-to
-### Deploying as multi-region
-1. Edit the `region1_main.tf` file, set the `credentials` variable to your aws credentials file.
-2. Add 2 profiles to your credentials file, one for each region, with profile names `region1` and `region2` as follows:
-
+### Deployment
+1. Edit the `terraform/main.tf` file, set the `credentials` variable to your aws credentials file.
+2. Add 1 profiles to your credentials file with the region you want to deploy Magento to. Use profile name: `magento-region`
 ```
-[region1]
-region = us-east-1
-aws_access_key_id = <ACCESS_KEY_ID>
-aws_secret_access_key = <SECRET_KEY>
-
-[region2]
-region = us-west-1
+[magento-region]
+region = <region>
 aws_access_key_id = <ACCESS_KEY_ID>
 aws_secret_access_key = <SECRET_KEY>
 ```
-3. Modify `region1_vars.tf` and `region2_vars.tf`, set the regions you want Magento to be deployed to. Default values are `us-east-1` and `us-west-1`
-
-### Deploying as single-region
-1. Edit the `region1_main.tf` file, set the `credentials` variable to your aws credentials file.
-2. Add 1 profiles to your credentials file, one for each region, with profile names `region1`
-
-```
-[region1]
-region = us-east-1
-aws_access_key_id = <ACCESS_KEY_ID>
-aws_secret_access_key = <SECRET_KEY>
-```
-3. Delete `region2*.tf` files
-4. Modify `region1_vars.tf`, set the `region1` variable to where you want Magento to be deployed to. Default value is `us-east-1`
+3. Modify `vars.tf`, set the `region` variable to where you want Magento to be deployed to. Default value is `us-east-1`
 
 ## Diagram
 ![screenshot](https://github.com/davoclock/magento2-tf/blob/master/img/multiregionmagento.png)
@@ -57,7 +51,6 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### Database
 - [X] MariaDB Database (10.4.13)
-- [ ] Cross-Region Replica
 - [X] Parameter Groups
 - [X] Storage Auto-Scaling
 
@@ -66,7 +59,7 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] EFS Targets
 
 ### Redis
-- [ ] Cross-Region Redis Cluster
+- [ ] Redis Cluster
 
 ### Search
 - [X] Elasticsearch Domain
@@ -74,7 +67,6 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Elasticsearch Dedicated Master
 
 ### LBs
-- [ ] Certificate
 - [ ] Target Groups
 - [ ] Security Profile
 - [ ] Health Checks
@@ -87,8 +79,8 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Fargate Service
 
 ### Web
-- [ ] Magento 2.4 Dockerfile
-- [ ] Varnish ECR Permissions
+- [X] Magento 2.4 Dockerfile
+- [ ] Magento ECR Permissions
 - [ ] Fargate Cluster
 - [ ] Fargate Task Definition
 - [ ] Fargate Service
