@@ -4,35 +4,35 @@ output "vpc_id" {
 }
 
 #----------------------------------------------------- SUBNET IDS
-output "bastion_subnets_id_1" {
+output "bastion_subnets_id_a" {
   value       = aws_subnet.bastion_subnets[0].id
 }
 
-output "bastion_subnets_id_2" {
+output "bastion_subnets_id_b" {
   value       = aws_subnet.bastion_subnets[1].id
 }
 
-output "cache_subnets_id_1" {
+output "cache_subnets_id_a" {
   value       = aws_subnet.cache_subnets[0].id
 }
 
-output "cache_subnets_id_2" {
+output "cache_subnets_id_b" {
   value       = aws_subnet.cache_subnets[1].id
 }
 
-output "web_subnets_id_1" {
+output "web_subnets_id_a" {
   value       = aws_subnet.web_subnets[0].id
 }
 
-output "web_subnets_id_2" {
+output "web_subnets_id_b" {
   value       = aws_subnet.web_subnets[1].id
 }
 
-output "db_subnets_id_1" {
+output "db_subnets_id_a" {
   value       = aws_subnet.db_subnets[0].id
 }
 
-output "db_subnets_id_2" {
+output "db_subnets_id_b" {
   value       = aws_subnet.db_subnets[1].id
 }
 
@@ -44,19 +44,19 @@ output "search_subnets_id_b" {
   value       = aws_subnet.search_subnets[1].id
 }
 
-output "efs_subnets_id_1" {
+output "efs_subnets_id_a" {
   value       = aws_subnet.efs_subnets[0].id
 }
 
-output "efs_subnets_id_2" {
+output "efs_subnets_id_b" {
   value       = aws_subnet.efs_subnets[1].id
 }
 
-output "redis_subnets_id_1" {
+output "redis_subnets_id_a" {
   value       = aws_subnet.redis_subnets[0].id
 }
 
-output "redis_subnets_id_2" {
+output "redis_subnets_id_b" {
   value       = aws_subnet.redis_subnets[1].id
 }
 
@@ -95,7 +95,12 @@ output "redis_security_group_id" {
   value       = aws_security_group.redis_sg.id
 }
 
-#----------------------------------------------------- DB SUBNET GROUP NAMES
-output "aws_db_subnet_group" {
-  value       = aws_db_subnet_group.db_subnet.name
+#----------------------------------------------------- DB SUBNET GROUP NAME
+output "aws_db_subnet_group_name" {
+  value       = aws_db_subnet_group.db_subnet_group.name
+}
+
+#----------------------------------------------------- REDIS SUBNET GROUP NAME
+output "aws_redis_subnet_group_name" {
+  value       = aws_elasticache_subnet_group.redis_subnet_group.name
 }

@@ -385,7 +385,13 @@ resource "aws_security_group" "efs_sg" {
 }
 
 #-------------------------------------------DB SUBNET GROUP
-resource "aws_db_subnet_group" "db_subnet" {
+resource "aws_db_subnet_group" "db_subnet_group" {
   name = "db subnet group"
   subnet_ids = [aws_subnet.db_subnets[0].id, aws_subnet.db_subnets[1].id]
+}
+
+#-------------------------------------------REDIS SUBNET GROUP
+resource "aws_elasticache_subnet_group" "redis_subnet_group" {
+  name       = "redis-subnet-group"
+  subnet_ids = [aws_subnet.redis_subnets[0].id,aws_subnet.redis_subnets[1].id]
 }
