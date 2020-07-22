@@ -63,6 +63,14 @@ module "es" {
   es_security_group_id= module.network.es_security_group_id
 }
 
+module "redis" {
+  source = "./modules/redis"
+  redis_session_size           = var.redis_session_size  
+  redis_cache_size             = var.redis_cache_size
+  redis_subnet_group_id        = [module.network.redis_subnets_id_1,module.network.redis_subnets_id_2]
+  redis_security_group_id      = module.network.redis_security_group_id
+}
+
 module "ecr" {
   source = "./modules/ecr"
 }

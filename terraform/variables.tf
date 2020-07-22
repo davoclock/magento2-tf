@@ -83,3 +83,12 @@ variable "es_dedicated_master" {
 variable "es_version" {
   default = "7.4"
 }
+
+#----------------------------------------------------- REDIS VARIABLES
+variable "redis_session_size" {
+  default = "cache.t2.micro"
+}
+
+variable "redis_cache_size" {
+  default = "cache.t2.micro"
+}

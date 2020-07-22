@@ -1,7 +1,9 @@
+#----------------------------------------------------- VPC ID
 output "vpc_id" {
   value       = aws_vpc.vpc.id
 }
 
+#----------------------------------------------------- SUBNET IDS
 output "bastion_subnets_id_1" {
   value       = aws_subnet.bastion_subnets[0].id
 }
@@ -58,10 +60,12 @@ output "redis_subnets_id_2" {
   value       = aws_subnet.redis_subnets[1].id
 }
 
+#----------------------------------------------------- IGW ID
 output "internet_gateway_id" {
   value       = aws_internet_gateway.internet_gateway.id
 }
 
+#----------------------------------------------------- ROUTING TABLE IDS
 output "public_routing_table_id" {
   value       = aws_route_table.public_routing_table.id
 }
@@ -70,6 +74,7 @@ output "private_routing_table_id" {
   value       = aws_route_table.private_routing_table.id
 }
 
+#----------------------------------------------------- SECURITY GROUP IDs
 output "efs_security_group_id" {
   value       = aws_security_group.efs_sg.id
 }
@@ -86,6 +91,11 @@ output "es_security_group_id" {
   value       = aws_security_group.search_sg.id
 }
 
+output "redis_security_group_id" {
+  value       = aws_security_group.redis_sg.id
+}
+
+#----------------------------------------------------- DB SUBNET GROUP NAMES
 output "aws_db_subnet_group" {
   value       = aws_db_subnet_group.db_subnet.name
 }
