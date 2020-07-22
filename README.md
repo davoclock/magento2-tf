@@ -78,7 +78,7 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### Cache
 - [ ] Varnish Dockerfile
-- [ ] Varnish ECR Repo
+- [X] Varnish ECR Repo
 - [ ] Varnish ECR Permissions
 - [ ] Fargate Cluster
 - [ ] Fargate Task Definition
