@@ -29,7 +29,7 @@ aws_secret_access_key = <SECRET_KEY>
 3. Modify `vars.tf`, set the `region` variable to where you want Magento to be deployed to. Default value is `us-east-1`
 
 ## Diagram
-![screenshot](https://github.com/davoclock/magento2-tf/blob/master/img/multiregionmagento.png)
+![screenshot](https://github.com/davoclock/magento2-tf/blob/master/img/magentosingleregion.png)
 
 ## Progress
 ### Network
