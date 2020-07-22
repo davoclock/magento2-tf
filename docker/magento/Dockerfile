@@ -42,6 +42,7 @@ RUN cd /var/www/html &&\
     cd magento2 &&\
     find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + &&\
     find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + &&\
+    composer update &&\
     composer install
 
 #COPY NGINX CONFIG TO NGINX DIRECTORY
