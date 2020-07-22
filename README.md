@@ -63,7 +63,8 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] EFS Targets
 
 ### Redis
-- [ ] Redis Cluster
+- [X] Redis Session Cluster
+- [X] Redis Default Cache Cluster
 
 ### Search
 - [X] Elasticsearch Domain
