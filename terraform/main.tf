@@ -3,7 +3,7 @@ provider "aws" {
   region                  = var.region
   version                 = "~> 2.70"
   shared_credentials_file = var.credentials
-  profile                 = "magento-region"
+  profile                 = "magento2-tf"
 }
 
 #------------------------------------------- CREATE NETWORK COMPONENTS

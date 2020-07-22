@@ -14,14 +14,14 @@ This terraform project creates a Multi-AZ Magento 2.4 environment on AWS. Here a
 Here's what you need:
 
 1. Wildcard, or store-url matching SSL cert under ACM
-2. AWS Credentials file with a profile name matching the region you choose on the vars.tf file
+2. AWS Credentials file with profile name: "magento2-tf", matching the region you choose on the vars.tf file
 
 ## How-to
 ### Deployment
-1. Edit the `terraform/main.tf` file, set the `credentials` variable to your aws credentials file.
-2. Add 1 profiles to your credentials file with the region you want to deploy Magento to. Use profile name: `magento-region`
+1. Edit the `terraform/variables.tf` file, set the `credentials` variable to your aws credentials file.
+2. Add 1 profiles to your credentials file with the region you want to deploy Magento to. Use profile name: `magento2-tf`
 ```
-[magento-region]
+[magento2-tf]
 region = <region>
 aws_access_key_id = <ACCESS_KEY_ID>
 aws_secret_access_key = <SECRET_KEY>
@@ -43,6 +43,11 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] VPC Routes
 - [X] Security Groups
 - [X] Database Subnet Groups
+
+### IAM
+- [ ] EC2 Roles
+- [ ] ECS/Fargate Task roles
+- [ ] ECS/Fargate Task Execution roles
 
 ### EC2 - Bastion Host
 - [X] EC2 Instance
@@ -72,6 +77,7 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### Cache
 - [ ] Varnish Dockerfile
+- [ ] Varnish ECR Repo
 - [ ] Varnish ECR Permissions
 - [ ] Fargate Cluster
 - [ ] Fargate Task Definition
@@ -79,25 +85,21 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### Web
 - [X] Magento 2.4 Dockerfile
+- [X] Magento ECR Repo
 - [ ] Magento ECR Permissions
 - [ ] Fargate Cluster
 - [ ] Fargate Task Definition
 - [ ] Fargate Service
 
-### IAM
-- [ ] EC2 Roles
-- [ ] ECS/Fargate Task roles
-- [ ] ECS/Fargate Task Execution roles
-
 ### CDN
-- [ ] TBD; Cloudfront vs Cloudflare
+- [ ] Cloudfront
 
 ### DNS
 - [ ] Route53 zone
 - [ ] DNS Records
 
 ### WAF
-- [ ] TBD - AWS Shield/WAF vs Cloudflare
+- [ ] AWS Shield
 
 ## Useful Links
 [Magento performance best practices](https://devdocs.magento.com/guides/v2.3/performance-best-practices/software.html)
