@@ -40,7 +40,6 @@ aws_secret_access_key = <SECRET_KEY>
 - [x] NAT Gateways
 - [x] Routing table associations
 - [x] Default Routes
-- [X] VPC Peering
 - [X] VPC Routes
 - [X] Security Groups
 - [X] Database Subnet Groups
