@@ -27,6 +27,7 @@ resource "aws_instance" "bastion_host" {
   vpc_security_group_ids = [var.bastion_host_sg]
   subnet_id       = var.subnet_id
   associate_public_ip_address = true
+  iam_instance_profile = var.bastion_profile
 
   tags = {
     Name = "Bastion Host"

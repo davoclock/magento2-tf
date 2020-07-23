@@ -395,3 +395,21 @@ resource "aws_elasticache_subnet_group" "redis_subnet_group" {
   name       = "redis-subnet-group"
   subnet_ids = [aws_subnet.redis_subnets[0].id,aws_subnet.redis_subnets[1].id]
 }
+
+#------------------------------------------- VARNISH EXTERNAL LOAD BALANCER
+resource "aws_lb" "varnish-lb" {
+  name               = "magento-load-balancer"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.external_lb_sg.id]
+  subnets            = [aws_subnet.cache_subnets[0].id,aws_subnet.cache_subnets[1].id]
+}
+
+#------------------------------------------- MAGENTO INTERNAL LOAD BALANCER
+resource "aws_lb" "magento-lb" {
+  name               = "magento-load-balancer"
+  internal           = true
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.internal_lb_sg.id]
+  subnets            = [aws_subnet.web_subnets[0].id,aws_subnet.web_subnets[1].id]
+}

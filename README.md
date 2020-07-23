@@ -45,7 +45,7 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Database Subnet Groups
 
 ### IAM
-- [ ] EC2 Roles
+- [X] EC2 Role (bastion host)
 - [ ] ECS/Fargate Task roles
 - [ ] ECS/Fargate Task Execution roles
 
@@ -72,6 +72,8 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Elasticsearch Dedicated Master
 
 ### LBs
+- [X] Varnish ALB
+- [X] Magento ALB
 - [ ] Target Groups
 - [ ] Security Profile
 - [ ] Health Checks
@@ -91,6 +93,16 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Fargate Cluster
 - [ ] Fargate Task Definition
 - [ ] Fargate Service
+
+### Magento CodePipeline
+- [ ] Build Process
+- [ ] Deploy Process
+- [ ] Github source
+
+### Varnish CodePipeline
+- [ ] Build Process
+- [ ] Deploy Process
+- [ ] Github source
 
 ### CDN
 - [ ] Cloudfront

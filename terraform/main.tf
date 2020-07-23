@@ -24,6 +24,11 @@ module "network" {
   az                     = var.az
 }
 
+#------------------------------------------- IAM ROLES
+module "iam" {
+  source = "./modules/iam"
+}
+
 module "efs" {
   source = "./modules/efs"
 
@@ -43,6 +48,7 @@ module "ec2" {
   bastion_host_sg         = module.network.bastion_security_group_id
   subnet_id               = module.network.bastion_subnets_id_a
   bastion_host_ami        = var.bastion_host_ami
+  bastion_profile         = module.iam.bastion_profile
 }
 
 module "rds" {
