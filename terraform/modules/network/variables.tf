@@ -7,3 +7,4 @@ variable "search_subnets" {type = list}
 variable "efs_subnets" {type = list}
 variable "redis_subnets" {type = list}
 variable "az" {}
+variable "ssl_cert_arn" {}

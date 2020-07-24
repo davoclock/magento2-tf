@@ -105,3 +105,8 @@ variable "redis_session_size" {
 variable "redis_cache_size" {
   default = "cache.t2.micro"
 }
+
+#----------------------------------------------------- ARN FOR SSL CERTIFICATE
+variable "ssl_cert_arn" {
+  default = "arn:aws:acm:us-east-1:661779315943:certificate/67ee0366-ae05-4cd8-b371-e4450d48b13a"
+}

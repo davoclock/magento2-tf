@@ -398,12 +398,36 @@ resource "aws_elasticache_subnet_group" "redis_subnet_group" {
 
 #------------------------------------------- VARNISH EXTERNAL LOAD BALANCER
 resource "aws_lb" "varnish-lb" {
-  name               = "magento-load-balancer"
+  name               = "varnish-load-balancer"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.external_lb_sg.id]
   subnets            = [aws_subnet.cache_subnets[0].id,aws_subnet.cache_subnets[1].id]
 }
+
+resource "aws_lb_target_group" "varnish-tg" {
+  name     = "varnish-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc.id
+  target_type = "ip"
+  depends_on   = [aws_lb.varnish-lb]
+}
+
+resource "aws_lb_listener" "varnish-lb-listener" {
+  load_balancer_arn = aws_lb.varnish-lb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
+  certificate_arn   = var.ssl_cert_arn
+  depends_on        = [aws_lb_target_group.varnish-tg,aws_lb.varnish-lb]
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.varnish-tg.arn
+  }
+}
+
 
 #------------------------------------------- MAGENTO INTERNAL LOAD BALANCER
 resource "aws_lb" "magento-lb" {
@@ -412,4 +436,25 @@ resource "aws_lb" "magento-lb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.internal_lb_sg.id]
   subnets            = [aws_subnet.web_subnets[0].id,aws_subnet.web_subnets[1].id]
+}
+
+resource "aws_lb_target_group" "magento-tg" {
+  name     = "magento-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc.id
+  target_type = "ip"
+  depends_on   = [aws_lb.magento-lb]
+}
+
+resource "aws_lb_listener" "magento-lb-listener" {
+  load_balancer_arn = aws_lb.magento-lb.arn
+  port              = "80"
+  protocol          = "HTTP"
+  depends_on        = [aws_lb_target_group.magento-tg,aws_lb.magento-lb]
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.magento-tg.arn
+  }
 }

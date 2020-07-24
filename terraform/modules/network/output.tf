@@ -95,6 +95,10 @@ output "redis_security_group_id" {
   value       = aws_security_group.redis_sg.id
 }
 
+output "web_security_group_id" {
+  value       = aws_security_group.web_servers_sg.id
+}
+
 #----------------------------------------------------- DB SUBNET GROUP NAME
 output "aws_db_subnet_group_name" {
   value       = aws_db_subnet_group.db_subnet_group.name
@@ -103,4 +107,18 @@ output "aws_db_subnet_group_name" {
 #----------------------------------------------------- REDIS SUBNET GROUP NAME
 output "aws_redis_subnet_group_name" {
   value       = aws_elasticache_subnet_group.redis_subnet_group.name
+}
+
+#----------------------------------------------------- ALB ARNs
+output "magento_lb" {
+  value       = aws_lb.magento-lb.arn
+}
+
+output "varnish_lb" {
+    value      = aws_lb.varnish-lb.arn
+}
+
+#----------------------------------------------------- MAGENTO TARGET GROUP ARN
+output "magento_tg_arn" {
+    value      = aws_lb_target_group.magento-tg.arn
 }

@@ -46,8 +46,8 @@ aws_secret_access_key = <SECRET_KEY>
 
 ### IAM
 - [X] EC2 Role (bastion host)
-- [ ] ECS/Fargate Task roles
-- [ ] ECS/Fargate Task Execution roles
+- [X] ECS Web Task Execution roles
+- [ ] ECS Varnish Task Execution roles
 
 ### EC2 - Bastion Host
 - [X] EC2 Instance
@@ -74,8 +74,8 @@ aws_secret_access_key = <SECRET_KEY>
 ### LBs
 - [X] Varnish ALB
 - [X] Magento ALB
-- [ ] Target Groups
-- [ ] Security Profile
+- [X] Target Groups
+- [X] Listener Security Profiles
 - [ ] Health Checks
 
 ### Cache
@@ -90,7 +90,7 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Magento 2.4 Dockerfile
 - [X] Magento ECR Repo
 - [ ] Magento ECR Permissions
-- [ ] Fargate Cluster
+- [X] Fargate Cluster
 - [ ] Fargate Task Definition
 - [ ] Fargate Service
 

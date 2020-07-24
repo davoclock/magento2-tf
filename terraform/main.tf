@@ -22,6 +22,7 @@ module "network" {
   efs_subnets            = var.efs_subnets
   redis_subnets          = var.redis_subnets
   az                     = var.az
+  ssl_cert_arn           = var.ssl_cert_arn
 }
 
 #------------------------------------------- IAM ROLES
@@ -88,4 +89,17 @@ module "redis" {
 
 module "ecr" {
   source = "./modules/ecr"
+}
+
+module "ecs" {
+  source = "./modules/ecs"
+
+  task_execution_role = module.iam.ecs_web_task_execution_role_arn
+  service_role  = module.iam.ecs_web_service_role_arn
+  efs_id = module.efs.efs_id
+  magento_tg_arn  = module.network.magento_tg_arn
+  region        = var.region
+  web_subnet_id_a = module.network.web_subnets_id_a
+  web_subnet_id_b = module.network.web_subnets_id_b
+  web_security_group_id  = module.network.web_security_group_id
 }
