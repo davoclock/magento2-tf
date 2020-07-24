@@ -5,6 +5,7 @@ output "bastion_ip" {
 
 output "MAGENTO_INSTALLATION_COMMAND" {
   value = <<SSHCONFIG
+  
 /var/www/html/magento2/bin/magento setup:install \
   --backend-frontname=admin \
   --admin-firstname=${var.magento_first_name} \

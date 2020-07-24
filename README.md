@@ -48,7 +48,7 @@ aws_secret_access_key = <SECRET_KEY>
 ### IAM
 - [X] EC2 Role (bastion host)
 - [X] ECS Web Task Execution roles
-- [ ] ECS Varnish Task Execution roles
+- [X] ECS Varnish Task Execution roles
 
 ### EC2 - Bastion Host
 - [X] EC2 Instance
@@ -77,7 +77,7 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Magento ALB
 - [X] Target Groups
 - [X] Listener Security Profiles
-- [ ] Health Checks
+- [X] Health Checks
 
 ### Cache
 - [ ] Varnish Dockerfile

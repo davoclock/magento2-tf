@@ -411,6 +411,16 @@ resource "aws_lb_target_group" "varnish-tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
   target_type = "ip"
+
+  health_check {
+    interval = 300
+    path     = "/index.html"
+    timeout  = 10
+    healthy_threshold = 3
+    unhealthy_threshold = 5
+    matcher = "200,301,302"
+  }
+
   depends_on   = [aws_lb.varnish-lb]
 }
 
@@ -444,6 +454,16 @@ resource "aws_lb_target_group" "magento-tg" {
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc.id
   target_type = "ip"
+
+  health_check {
+    interval = 300
+    path     = "/index.html"
+    timeout  = 10
+    healthy_threshold = 3
+    unhealthy_threshold = 5
+    matcher = "200,301,302"
+  }
+  
   depends_on   = [aws_lb.magento-lb]
 }
 

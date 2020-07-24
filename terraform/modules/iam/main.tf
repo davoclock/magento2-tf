@@ -69,12 +69,23 @@ data "aws_iam_policy_document" "assume_ecs_policy" {
   }
 }
 
-resource "aws_iam_role" "ecsTaskExecutionRole" {
-  name               = "ecs-magento-task-execution-role"
+resource "aws_iam_role" "ecswebTaskExecutionRole" {
+  name               = "ecs-web-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.assume_ecs_policy.json
 }
 
-resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
-  role       = aws_iam_role.ecsTaskExecutionRole.name
+resource "aws_iam_role_policy_attachment" "ecswebTaskExecutionRole_policy" {
+  role       = aws_iam_role.ecswebTaskExecutionRole.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+#-------------------------------------------- ECS VARNISH TASK EXECUTION ROLES & POLICY ATTACHMENT
+resource "aws_iam_role" "ecsvarnishTaskExecutionRole" {
+  name               = "ecs-varnish-task-execution-role"
+  assume_role_policy = data.aws_iam_policy_document.assume_ecs_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "ecsvarnishTaskExecutionRole_policy" {
+  role       = aws_iam_role.ecsvarnishTaskExecutionRole.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }

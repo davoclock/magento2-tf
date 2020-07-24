@@ -16,16 +16,14 @@ RUN apk add $WEB_PACKAGES $PHP_PACKAGES $OS_PACKAGES $COMPOSER_PACKAGES &&\
 #CREATE DIRECTORY FOR NGINX PID
     mkdir -p /run/nginx &&\
 #CREATE MAGENTO USER WITH UID: 1000 (for consistency across containers and to establish permissions for EFS). CREATE MAGENTO GROUP.
-    adduser -D magento -u 1000 &&\
-    addgroup magento nginx &&\
+    adduser -D magento -u 1000 -G nginx &&\
 #SWITCH FOLDERS TO PREP NGINX DOCUMENT ROOT
     mkdir  /var/www/html &&\
     chown -R magento.nginx /var/www/html &&\
-    chmod g+s /var/www/html &&\
-#ENSURE EMPTY PASSWORD FOR MAGENTO USER
-    passwd magento -d '' &&\
+    chmod g+ws /var/www/html &&\
+#GENERATE KEYS TO ENABLE SSH
     ssh-keygen -A &&\
-    echo "magento ALL=(ALL) NOPASSWD:ALL" >> /etc/visudo
+    echo "magento ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 #SET NGINX, SUPERVISOR, PHP CONFIGURATION FILES
 COPY magento-nginx.conf /etc/nginx/magento2.conf
