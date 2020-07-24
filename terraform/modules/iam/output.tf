@@ -3,9 +3,5 @@ output "bastion_profile" {
 }
 
 output "ecs_web_task_execution_role_arn" {
-  value       = aws_iam_role.web_ecs_task_role.arn
-}
-
-output "ecs_web_service_role_arn" {
-  value       = aws_iam_role.web_ecs_service_role.arn
+  value       = aws_iam_role.ecsTaskExecutionRole.arn
 }

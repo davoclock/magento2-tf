@@ -5,7 +5,30 @@ resource "aws_ecs_cluster" "magento" {
 
 resource "aws_ecs_task_definition" "magento-web" {
   family                = "magento-web"
-  container_definitions = file("./task-definitions/magento-web.json")
+  execution_role_arn = var.task_execution_role
+  container_definitions = <<TASK_DEFINITION
+[
+    {
+      "name": "magento-web",
+      "image": "${var.ecr_magento_url}:latest",
+      "cpu": 1024,
+      "memory": 2048,
+      "networkMode": "awsvpc",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        },
+        {
+            "containerPort": 22,
+            "hostPort": 22
+        }
+      ]
+    }
+  ]
+TASK_DEFINITION
+
   network_mode          = "awsvpc"
   requires_compatibilities  = ["FARGATE"]
   cpu         = 1024
@@ -18,7 +41,6 @@ resource "aws_ecs_task_definition" "magento-web" {
     }
   }
 }
-
 
 resource "aws_ecs_service" "magento-web" {
   name            = "magento-web"

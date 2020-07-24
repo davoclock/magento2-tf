@@ -81,7 +81,6 @@ aws_secret_access_key = <SECRET_KEY>
 ### Cache
 - [ ] Varnish Dockerfile
 - [X] Varnish ECR Repo
-- [ ] Varnish ECR Permissions
 - [ ] Fargate Cluster
 - [ ] Fargate Task Definition
 - [ ] Fargate Service
@@ -89,20 +88,21 @@ aws_secret_access_key = <SECRET_KEY>
 ### Web
 - [X] Magento 2.4 Dockerfile
 - [X] Magento ECR Repo
-- [ ] Magento ECR Permissions
 - [X] Fargate Cluster
-- [ ] Fargate Task Definition
-- [ ] Fargate Service
+- [X] Fargate Task Definition
+- [X] Fargate Service
 
 ### Magento CodePipeline
 - [ ] Build Process
 - [ ] Deploy Process
 - [ ] Github source
+- [ ] Magento ECR Permissions
 
 ### Varnish CodePipeline
 - [ ] Build Process
 - [ ] Deploy Process
 - [ ] Github source
+- [ ] Varnish ECR Permissions
 
 ### CDN
 - [ ] Cloudfront
