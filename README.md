@@ -14,7 +14,7 @@ This terraform project creates a Multi-AZ Magento 2.4 environment on AWS. Here a
 Here's what you need:
 
 1. Wildcard, or store-url matching SSL cert under ACM
-2. AWS Credentials file with profile name: "magento2-tf", matching the region you choose on the vars.tf file
+2. AWS Credentials file with profile name: "magento2-tf", matching the region you choose on the `variables.tf` file
 
 ## How-to
 ### Deployment
@@ -27,6 +27,7 @@ aws_access_key_id = <ACCESS_KEY_ID>
 aws_secret_access_key = <SECRET_KEY>
 ```
 3. Modify `vars.tf`, set the `region` variable to where you want Magento to be deployed to. Default value is `us-east-1`
+4. Edit `terraform/variables.tf`, adjust variable `ssl_cert_arn`, set to SSL cert on ACM
 
 ## Diagram
 ![screenshot](https://github.com/davoclock/magento2-tf/blob/master/img/magentosingleregion.png)
