@@ -15,6 +15,13 @@ resource "aws_ecs_task_definition" "magento-web" {
       "memory": 2048,
       "networkMode": "awsvpc",
       "essential": true,
+      "mountPoints": [
+        {
+          "readOnly": null,
+          "containerPath": "/var/www/html/magento2/pub/media",
+          "sourceVolume": "pub-media"
+        }
+      ],
       "portMappings": [
         {
           "containerPort": 80,
@@ -35,7 +42,7 @@ TASK_DEFINITION
   memory      = 2048
 
   volume {
-    name = "service-storage"
+    name = "pub-media"
     efs_volume_configuration {
       file_system_id          = var.efs_id
     }

@@ -287,7 +287,7 @@ resource "aws_security_group" "web_servers_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    security_groups = [aws_security_group.internal_lb_sg.id]
+    security_groups = [aws_security_group.internal_lb_sg.id,aws_security_group.bastion_servers_sg.id]
   }
 
   ingress {

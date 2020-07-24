@@ -15,3 +15,43 @@ resource "aws_ecr_repository" "varnish" {
     scan_on_push = false
   }
 }
+
+resource "aws_ecr_repository_policy" "ecr_ecs_magento_policy" {
+  repository = aws_ecr_repository.magento.name
+
+  policy = <<EOF
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "ecr-policy-for-magento-tasks",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::661779315943:role/ecs-magento-task-execution-role"
+      },
+      "Action": "ecr:BatchGetImage"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_ecr_repository_policy" "ecr_ecs_varnish_policy" {
+  repository = aws_ecr_repository.varnish.name
+
+  policy = <<EOF
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "ecr-policy-for-magento-tasks",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::661779315943:role/ecs-magento-task-execution-role"
+      },
+      "Action": "ecr:BatchGetImage"
+    }
+  ]
+}
+EOF
+}

@@ -110,3 +110,28 @@ variable "redis_cache_size" {
 variable "ssl_cert_arn" {
   default = "arn:aws:acm:us-east-1:661779315943:certificate/67ee0366-ae05-4cd8-b371-e4450d48b13a"
 }
+
+#----------------------------------------------------- MAGENTO STORE VARIABLES
+variable "magento_first_name" {
+  default = "Davo"
+}
+
+variable "magento_last_name" {
+  default = "Davo"
+}
+
+variable "magento_email" {
+  default = "davoclock@gmail.com"
+}
+
+variable "magento_admin_user" {
+  default = "davo"
+}
+
+variable "magento_password" {
+  default = "Password1"
+}
+
+variable "magento_url" {
+  default = "store.davoclock.com"
+}
