@@ -22,7 +22,7 @@ RUN apk add $WEB_PACKAGES $PHP_PACKAGES $OS_PACKAGES $COMPOSER_PACKAGES &&\
     mkdir  /var/www/html &&\
     chown -R magento.magento /var/www/html &&\
 #CREATE HOST KEYS TO ALLOW SSH
-    ssh-keygen -A
+    passwd magento -d ''
 
 #SET NGINX, SUPERVISOR, PHP CONFIGURATION FILES
 COPY magento-nginx.conf /etc/nginx/magento2.conf
@@ -31,8 +31,6 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY php.ini /etc/php7/php.ini
 COPY authorized_keys /home/magento/.ssh/authorized_keys
 COPY sshd_config /etc/ssh/sshd_config
-
-RUN chown magento.magento /home/magento/.ssh/authorized_keys
 
 EXPOSE 80 22
 

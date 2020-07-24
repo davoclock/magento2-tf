@@ -1,6 +1,6 @@
-AuthorizedKeysFile      .ssh/authorized_keys
-PasswordAuthentication no
-PubkeyAuthentication yes
+PasswordAuthentication yes
+PermitEmptyPasswords yes
+PubkeyAuthentication no
 AllowTcpForwarding no
 GatewayPorts no
 X11Forwarding no
