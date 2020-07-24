@@ -6,3 +6,4 @@ variable "web_subnet_id_a" {}
 variable "web_subnet_id_b" {}
 variable "web_security_group_id" {}
 variable "ecr_magento_url" {}
+variable "efs_ap_id" {}

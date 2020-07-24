@@ -102,4 +102,5 @@ module "ecs" {
   web_subnet_id_b = module.network.web_subnets_id_b
   web_security_group_id  = module.network.web_security_group_id
   ecr_magento_url         = module.ecr.ecr_magento_url
+  efs_ap_id         = module.efs.efs_ap_id
 }

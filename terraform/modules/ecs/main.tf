@@ -15,11 +15,20 @@ resource "aws_ecs_task_definition" "magento-web" {
       "memory": 2048,
       "networkMode": "awsvpc",
       "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "secretOptions": null,
+        "options": {
+          "awslogs-group": "/ecs/magento-web",
+          "awslogs-region": "${var.region}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
       "mountPoints": [
         {
           "readOnly": null,
           "containerPath": "/var/www/html/magento2/pub/media",
-          "sourceVolume": "pub-media"
+          "sourceVolume": "pubmedia"
         }
       ],
       "portMappings": [
@@ -42,9 +51,13 @@ TASK_DEFINITION
   memory      = 2048
 
   volume {
-    name = "pub-media"
+    name = "pubmedia"
     efs_volume_configuration {
+      transit_encryption      = "ENABLED"
       file_system_id          = var.efs_id
+      authorization_config {
+        access_point_id = var.efs_ap_id
+      }
     }
   }
 }

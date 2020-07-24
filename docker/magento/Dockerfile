@@ -46,5 +46,4 @@ RUN cd /var/www/html &&\
     find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} +
 
 USER root
-COPY index.html /var/www/html/magento2/pub/index.html
 CMD ["/usr/bin/supervisord","--configuration=/etc/supervisord.conf"]
