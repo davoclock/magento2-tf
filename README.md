@@ -108,10 +108,6 @@ aws_secret_access_key = <SECRET_KEY>
 ### CDN
 - [ ] Cloudfront
 
-### DNS
-- [ ] Route53 zone
-- [ ] DNS Records
-
 ### WAF
 - [ ] AWS Shield
 
