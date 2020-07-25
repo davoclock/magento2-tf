@@ -80,11 +80,11 @@ aws_secret_access_key = <SECRET_KEY>
 - [X] Health Checks
 
 ### Cache
-- [ ] Varnish Dockerfile
+- [X] Varnish Dockerfile
 - [X] Varnish ECR Repo
-- [ ] Fargate Cluster
-- [ ] Fargate Task Definition
-- [ ] Fargate Service
+- [X] Fargate Cluster
+- [X] Fargate Task Definition
+- [X] Fargate Service
 
 ### Web
 - [X] Magento 2.4 Dockerfile
