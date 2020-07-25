@@ -94,13 +94,25 @@ module "ecr" {
 module "ecs" {
   source = "./modules/ecs"
 
-  task_execution_role = module.iam.ecs_web_task_execution_role_arn
+  #GLOBAL VARS
+  region        = var.region
+  
+
+  #MAGENTO VARS
   efs_id = module.efs.efs_id
   magento_tg_arn  = module.network.magento_tg_arn
-  region        = var.region
   web_subnet_id_a = module.network.web_subnets_id_a
   web_subnet_id_b = module.network.web_subnets_id_b
   web_security_group_id  = module.network.web_security_group_id
   ecr_magento_url         = module.ecr.ecr_magento_url
   efs_ap_id         = module.efs.efs_ap_id
+  web_task_execution_role = module.iam.ecs_web_task_execution_role_arn
+
+  #VARNISH VARS
+  varnish_tg_arn  = module.network.varnish_tg_arn
+  cache_subnet_id_a = module.network.cache_subnets_id_a
+  cache_subnet_id_b = module.network.cache_subnets_id_b
+  cache_security_group_id  = module.network.cache_security_group_id
+  ecr_varnish_url         = module.ecr.ecr_varnish_url
+  varnish_task_execution_role = module.iam.ecs_varnish_task_execution_role_arn
 }

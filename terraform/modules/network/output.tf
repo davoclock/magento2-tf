@@ -99,6 +99,10 @@ output "web_security_group_id" {
   value       = aws_security_group.web_servers_sg.id
 }
 
+output "cache_security_group_id" {
+  value       = aws_security_group.cache_servers_sg.id
+}
+
 #----------------------------------------------------- DB SUBNET GROUP NAME
 output "aws_db_subnet_group_name" {
   value       = aws_db_subnet_group.db_subnet_group.name
@@ -121,4 +125,9 @@ output "varnish_lb" {
 #----------------------------------------------------- MAGENTO TARGET GROUP ARN
 output "magento_tg_arn" {
     value      = aws_lb_target_group.magento-tg.arn
+}
+
+#----------------------------------------------------- VARNISH TARGET GROUP ARN
+output "varnish_tg_arn" {
+    value      = aws_lb_target_group.varnish-tg.arn
 }

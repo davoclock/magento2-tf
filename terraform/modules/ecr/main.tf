@@ -29,7 +29,7 @@ resource "aws_ecr_repository_policy" "ecr_ecs_magento_policy" {
       "Principal": {
         "AWS": "arn:aws:iam::661779315943:role/ecs-web-task-execution-role"
       },
-      "Action": "ecr:BatchGetImage"
+      "Action": "ecr:*"
     }
   ]
 }
@@ -44,12 +44,12 @@ resource "aws_ecr_repository_policy" "ecr_ecs_varnish_policy" {
   "Version": "2008-10-17",
   "Statement": [
     {
-      "Sid": "ecr-policy-for-magento-tasks",
+      "Sid": "ecr-policy-for-varnish-tasks",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::661779315943:role/ecs-web-task-execution-role"
+        "AWS": "arn:aws:iam::661779315943:role/ecs-varnish-task-execution-role"
       },
-      "Action": "ecr:BatchGetImage"
+      "Action": "ecr:*"
     }
   ]
 }

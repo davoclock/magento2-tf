@@ -124,7 +124,7 @@ resource "aws_route_table_association" "dmz_rt_association" {
 resource "aws_route_table_association" "cache_rt_association" {
   count          = length(var.cache_subnets)
   subnet_id      = aws_subnet.cache_subnets[count.index].id
-  route_table_id = aws_route_table.private_routing_table.id
+  route_table_id = aws_route_table.public_routing_table.id
 }
 
 resource "aws_route_table_association" "web_rt_association" {
@@ -253,14 +253,14 @@ resource "aws_security_group" "internal_lb_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    security_groups = [aws_security_group.cache_servers_sg.id]
+    security_groups = [aws_security_group.cache_servers_sg.id,aws_security_group.bastion_servers_sg.id]
   }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    security_groups = [aws_security_group.cache_servers_sg.id]
+    security_groups = [aws_security_group.cache_servers_sg.id,aws_security_group.bastion_servers_sg.id]
   }
 
   egress {
@@ -414,10 +414,10 @@ resource "aws_lb_target_group" "varnish-tg" {
 
   health_check {
     interval = 300
-    path     = "/index.html"
+    path     = "/"
     timeout  = 10
     healthy_threshold = 3
-    unhealthy_threshold = 5
+    unhealthy_threshold = 10
     matcher = "200,301,302"
   }
 
@@ -457,13 +457,13 @@ resource "aws_lb_target_group" "magento-tg" {
 
   health_check {
     interval = 300
-    path     = "/index.html"
+    path     = "/"
     timeout  = 10
     healthy_threshold = 3
-    unhealthy_threshold = 5
+    unhealthy_threshold = 10
     matcher = "200,301,302"
   }
-  
+
   depends_on   = [aws_lb.magento-lb]
 }
 

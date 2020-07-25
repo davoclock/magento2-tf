@@ -5,7 +5,7 @@ resource "aws_ecs_cluster" "magento" {
 
 resource "aws_ecs_task_definition" "magento-web" {
   family                = "magento-web"
-  execution_role_arn = var.task_execution_role
+  execution_role_arn = var.web_task_execution_role
   container_definitions = <<TASK_DEFINITION
 [
     {
@@ -15,15 +15,6 @@ resource "aws_ecs_task_definition" "magento-web" {
       "memory": 2048,
       "networkMode": "awsvpc",
       "essential": true,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "secretOptions": null,
-        "options": {
-          "awslogs-group": "/ecs/magento-web",
-          "awslogs-region": "${var.region}",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
       "mountPoints": [
         {
           "readOnly": null,
@@ -79,5 +70,59 @@ resource "aws_ecs_service" "magento-web" {
   network_configuration {
     subnets         = [var.web_subnet_id_a,var.web_subnet_id_b]
     security_groups  = [var.web_security_group_id]
+  }
+}
+
+#------------------------------------------------- VARNISH
+resource "aws_ecs_cluster" "varnish" {
+  name = "varnish"
+  capacity_providers  = ["FARGATE","FARGATE_SPOT"]
+}
+
+resource "aws_ecs_task_definition" "varnish-cache" {
+  family                = "varnish-cache"
+  execution_role_arn = var.varnish_task_execution_role
+  container_definitions = <<TASK_DEFINITION
+[
+    {
+      "name": "varnish",
+      "image": "${var.ecr_varnish_url}:latest",
+      "cpu": 256,
+      "memory": 512,
+      "networkMode": "awsvpc",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
+TASK_DEFINITION
+
+  network_mode          = "awsvpc"
+  requires_compatibilities  = ["FARGATE"]
+  cpu         = 256
+  memory      = 512
+}
+
+resource "aws_ecs_service" "varnish-cache" {
+  name            = "varnish-cache"
+  cluster         = aws_ecs_cluster.varnish.id
+  task_definition = aws_ecs_task_definition.varnish-cache.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+  platform_version  = "1.4.0"
+
+  load_balancer {
+    target_group_arn = var.varnish_tg_arn
+    container_name   = "varnish"
+    container_port   = 80
+  }
+
+  network_configuration {
+    subnets         = [var.cache_subnet_id_a,var.cache_subnet_id_b]
+    security_groups  = [var.cache_security_group_id]
   }
 }

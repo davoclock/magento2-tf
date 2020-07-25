@@ -1,6 +1,6 @@
 resource "aws_db_parameter_group" "magento_param_group" {
   name   = "mariadb"
-  family = "mariadb10.4"
+  family = "mariadb10.2"
   parameter {
     name  = "binlog_format"
     value = "row"
@@ -12,7 +12,7 @@ resource "aws_db_parameter_group" "magento_param_group" {
   max_allocated_storage = var.rds_max_disk_size
   storage_type         = "gp2"
   engine               = "mariadb"
-  engine_version       = "10.4.13"
+  engine_version       = "10.2.21"
   instance_class       = var.rds_type
   name                 = "magento"
   username             = "magento"
