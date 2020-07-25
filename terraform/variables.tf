@@ -128,10 +128,6 @@ variable "magento_admin_user" {
   default = "davo"
 }
 
-variable "magento_password" {
-  default = "Password1"
-}
-
 variable "magento_url" {
   default = "store.davoclock.com"
 }

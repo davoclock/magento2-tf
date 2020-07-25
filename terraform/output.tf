@@ -12,7 +12,7 @@ output "MAGENTO_INSTALLATION_COMMAND" {
   --admin-lastname=${var.magento_last_name} \
   --admin-email=${var.magento_email} \
   --admin-user=${var.magento_admin_user} \
-  --admin-password=${var.magento_password} \
+  --admin-password=<MAGENTO_ADMIN_PWD> \
   --base-url=http://${var.magento_url}/ \
   --db-host=${module.rds.db_address} \
   --db-name=magento \
