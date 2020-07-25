@@ -4,8 +4,8 @@ output "bastion_ip" {
 
 
 output "MAGENTO_INSTALLATION_COMMAND" {
-  value = <<SSHCONFIG
-  
+  value = <<INSTALLCOMMAND
+
 /var/www/html/magento2/bin/magento setup:install \
   --backend-frontname=admin \
   --admin-firstname=${var.magento_first_name} \
@@ -29,5 +29,5 @@ output "MAGENTO_INSTALLATION_COMMAND" {
   --search-engine elasticsearch7 \
   --elasticsearch-host ${module.es.es_endpoint} \
   --elasticsearch-port 80
-SSHCONFIG
+INSTALLCOMMAND
 }
