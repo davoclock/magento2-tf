@@ -99,12 +99,6 @@ aws_secret_access_key = <SECRET_KEY>
 - [ ] Github source
 - [ ] Magento ECR Permissions
 
-### Varnish CodePipeline
-- [ ] Build Process
-- [ ] Deploy Process
-- [ ] Github source
-- [ ] Varnish ECR Permissions
-
 ### CDN
 - [ ] Cloudfront
 
